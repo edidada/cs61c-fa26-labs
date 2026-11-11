@@ -43,7 +43,7 @@ const assert = require('node:assert/strict');
     result.memory = await page.locator('#memory-table tbody tr').evaluateAll(rows=>rows.map(r=>({address:r.cells[0].innerText,bytes:[...r.querySelectorAll('input')].map(i=>i.value)})));
     const word = result.memory.find(r=>Number(r.address) === 0x10000000);
     assert.ok(word,'data memory row visible');
-    assert.equal(Number(word.bytes.at(-1)),12);
+    assert.equal(parseInt(word.bytes.at(-1),16),12);
     await page.locator('#register-tab').click();
     await page.locator('#instruction-40 td').first().click();
     result.breakpoints=[];

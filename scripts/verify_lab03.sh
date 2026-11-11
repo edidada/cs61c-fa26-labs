@@ -31,6 +31,7 @@ for entry in '0:1' '1:1' '3:6' '7:5040' '8:40320' '12:479001600'; do
 done
 venus memory --memcheckVerbose lab03/ex3_memcheck.s
 ! grep -Ei 'invalid|unfreed|uninitialized|error|not freed' "$out/memory.log"
+grep -q 'In use at exit: 0 bytes in 0 blocks' "$out/memory.log"
 venus fib-trace --trace --tracepattern 'TRACE pc=%pc% inst=%inst% sp=%2% t0=%5% t1=%6% t3=%28%\n' lab03/fib.s
 # Preserve the buggy observations for the exercise answers. Expected errors are not final-program successes.
 git show ae05a0313aad04ed688bb4fbd1aa7df3b8b38132:lab03/ex3_memcheck.s > test-results/original/ex3_memcheck.s
@@ -53,4 +54,11 @@ result=$?
 set -e
 echo "intermediate-memory exit=$result"
 cat "$out/intermediate-memory.log"
+grep -q "address '0x10008058'" "$out/original-normal.log"
+grep -q 'Invalid memory access of size 4. Address 0x10008080' "$out/original-memcheck.log"
+grep -q 'block of size 40' "$out/original-memcheck.log"
+grep -q 'ex3_memcheck.s:18' "$out/original-memcheck.log"
+grep -q 'x6(t1)=0x0000000A' "$out/original-memcheck.log"
+grep -q 'In use at exit: 40 bytes in 1 blocks' "$out/intermediate-memory.log"
+grep -q '40 bytes at 0x10008058 is lost' "$out/intermediate-memory.log"
 printf 'PASS: hello, fib, 7 lookup cases, 6 factorial cases, fixed memory program; debugging observations collected\n'
