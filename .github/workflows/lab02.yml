@@ -1,0 +1,22 @@
+name: CS61C Lab02 C debugging
+on:
+  push:
+    branches: [edidada/lab02]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lab02:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install debugging tools
+        run: sudo apt-get update && sudo apt-get install -y gdb valgrind
+      - name: Run lab exercises remotely
+        run: bash scripts/verify_lab02.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cs61c-lab02-results
+          path: test-results/

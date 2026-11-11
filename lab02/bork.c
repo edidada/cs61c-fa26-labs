@@ -7,7 +7,10 @@
 #include <string.h>
 
 char *alloc_str(int len) {
-    return malloc(len*sizeof(char));
+    char *data = malloc(((size_t)len + 1) * sizeof(char));
+    if (data == NULL) { exit(1); }
+    data[len] = '\0';
+    return data;
 }
 
 /* Str helper functions */
@@ -62,7 +65,7 @@ int main(int argc, char*argv[]) {
         return 1;
     }
 
-    Str dest_str={}; // Fancy syntax to zero initialize struct
+    Str dest_str = make_Str(alloc_str(0)); // Fancy syntax to zero initialize struct
     Str src_str = make_Str(argv[1]);
     for (int i = 0; i < src_str.len; ++i) {
         Str bork_substr = translate_to_bork(src_str.data[i]);
@@ -72,5 +75,6 @@ int main(int argc, char*argv[]) {
     printf("Input string: \"%s\"\n", src_str.data);
     printf("Length of translated string: %d\n", dest_str.len);
     printf("Translate to Bork: \"%s\"\n", dest_str.data);
+    free_Str(dest_str);
     return 0;
 }
