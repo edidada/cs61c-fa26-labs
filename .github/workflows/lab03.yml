@@ -17,10 +17,19 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser
+        run: npm install --no-save --package-lock=false playwright@1.56.1 && npx playwright install chromium
       - name: Run Venus exercises remotely
         run: bash scripts/verify_lab03.sh
+      - name: Verify actual Venus browser
+        run: node scripts/verify_lab03_browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cs61c-lab03-results
-          path: test-results/
+          path: |
+            test-results/
+            output/playwright/
