@@ -11,8 +11,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install debugging tools
-        run: sudo apt-get update && sudo apt-get install -y gdb valgrind
+        run: bash scripts/ensure_debug_tools.sh
       - name: Run lab exercises remotely
         run: bash scripts/verify_lab02.sh
       - uses: actions/upload-artifact@v4

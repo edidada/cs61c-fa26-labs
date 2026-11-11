@@ -9,3 +9,5 @@ ex2/ex3命令在原始/仅修正长度的中间版本上分别运行，记录修
 验证仅在独立.github/workflows/lab02.yml的GitHub Actions执行，本地未编译或运行实验。当前结果待远程运行确认，恢复时查看edidada/lab02最新HEAD的运行，不以本说明代替证据。
 
 范围限制：Ubuntu runner替代Hive，不证明课程指定机器环境；原密码/vector测试源文件未修改；Google Form内存错误测验、个人反馈问卷、Gradescope和人工CGDB界面操作未完成，不能宣布整门课程或课堂Lab全部验收。可选vector也纳入公开代码验证。
+
+首次f81d667/run43038273993在安装gdb/valgrind时因runner的azure.archive.ubuntu.com DNS失败，尚未执行实验；改用隔离的官方archive.ubuntu.com源并限时安装，不减去GDB/Valgrind验证。另完整检出以读取原始调试版本。
