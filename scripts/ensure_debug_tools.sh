@@ -3,6 +3,13 @@ set -euo pipefail
 if command -v gdb && command -v valgrind; then
     gdb --version | head -1
     valgrind --version
+    if ! dpkg-query -W -f='${Status}' libc6-dbg 2>/dev/null | grep -q 'install ok installed'; then
+        version=$(dpkg-query -W -f='${Version}' libc6:amd64)
+        echo "Installing matching glibc debug symbols for $version"
+        deb=$(mktemp --suffix=.deb)
+        curl --fail --location --retry 2 --connect-timeout 10 --max-time 90 "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6-dbg_${version}_amd64.deb" -o "$deb"
+        sudo dpkg -i "$deb"
+    fi
     exit 0
 fi
 # sudo normally removes proxy variables; preserve the runner's HTTP proxy without printing its value.

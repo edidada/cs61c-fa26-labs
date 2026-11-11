@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include "pwd_checker.h"
 #include "ex7_vector.h"
+bool check_length(const char *);
+bool check_upper(const char *);
+bool check_lower(const char *);
+bool check_number(const char *);
 int main(void) {
     assert(!check_length("123456789"));
     assert(check_length("1234567890"));
