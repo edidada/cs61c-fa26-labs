@@ -1,0 +1,24 @@
+name: CS61C Lab03 RISC-V Venus
+on:
+  push:
+    branches: [edidada/lab03]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lab03:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Run Venus exercises remotely
+        run: bash scripts/verify_lab03.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cs61c-lab03-results
+          path: test-results/
