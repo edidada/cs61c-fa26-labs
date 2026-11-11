@@ -13,9 +13,22 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install debugging tools
-        run: bash scripts/ensure_debug_tools.sh
+      - uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39
+        with:
+          environment-name: lab02-tools
+          create-args: >-
+            --channel conda-forge
+            gdb=18.1
+            valgrind=3.27.1
+          cache-environment: true
+      - name: Verify debugging tools
+        shell: bash -leo pipefail {0}
+        run: |
+          bash scripts/ensure_debug_tools.sh
+          mkdir -p test-results
+          micromamba list --explicit > test-results/tool-environment.lock.txt
       - name: Run lab exercises remotely
+        shell: bash -leo pipefail {0}
         run: bash scripts/verify_lab02.sh
       - uses: actions/upload-artifact@v4
         if: always()

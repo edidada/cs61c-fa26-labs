@@ -11,3 +11,5 @@ ex2/ex3命令在原始/仅修正长度的中间版本上分别运行，记录修
 范围限制：Ubuntu runner替代Hive，不证明课程指定机器环境；原密码/vector测试源文件未修改；Google Form内存错误测验、个人反馈问卷、Gradescope和人工CGDB界面操作未完成，不能宣布整门课程或课堂Lab全部验收。可选vector也纳入公开代码验证。
 
 首次f81d667/run43038273993在安装gdb/valgrind时因runner的azure.archive.ubuntu.com DNS失败，尚未执行实验；改用隔离的官方archive.ubuntu.com源并限时安装，不减去GDB/Valgrind验证。另完整检出以读取原始调试版本。
+
+162cefe和0ba874d分别尝试官方主镜像与sudo代理保留，日志确认没有HTTP代理且仍DNS失败；改用固定SHA的mamba-org/setup-micromamba提供conda-forge GDB18.1/Valgrind3.27.1，不省略调试器/内存检查。实际解析环境的显式包锁随artifact归档；是否能完成实验仍以最终远程结果为准。
