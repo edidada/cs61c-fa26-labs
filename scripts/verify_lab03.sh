@@ -6,6 +6,7 @@ exec > >(tee "$out/verification.log") 2>&1
 printf 'commit=%s\n' "$(git rev-parse HEAD)"
 # Use the same official tool URL selected by this semester's unmodified download script.
 curl --fail --location --retry 4 https://inst.eecs.berkeley.edu/~cs61c/sp26/tools/venus-latest.jar -o tools/venus.jar
+echo '69e48a8ffecb155d1227d171ae6888be0d3e103975d04b19762a08fc9463e1cc  tools/venus.jar' | sha256sum --check
 sha256sum tools/venus.jar | tee "$out/venus.sha256"
 java -version
 venus() {
