@@ -4,7 +4,7 @@
 
 实现记录：ex1修复指针层级与返回值并释放Course；密码函数修复长度方向、闭区间和数字ASCII范围；Bork分配终止符、释放最终字符串并支持空输入；vector补全堆构造/销毁，扩容零填充保留原数据且检查大小溢出；双指针示例删除被覆盖的冗余分配。保留bad_vector_new教学反例，不调用悬空返回值；ex5保留故意的空指针崩溃供GDB定位。
 
-ex2/ex3命令在原始/仅修正长度的中间版本上分别运行，记录修复前观察；最终修复后的密码驱动另外执行。ex5答案ben/16由远程GDB回溯核验。脚本保存编译器、GDB、Valgrind版本及所有输出，验证原始vector打印的10组等式，补充密码边界和30000步数组差分，Bork含空串/全元音/无元音。
+ex2/ex3命令在原始/仅修正长度的中间版本上分别运行，记录修复前观察；最终修复后的密码驱动另外执行。ex5答案ben/15由远程GDB回溯核验；旧记录的16是下一条调用语句行号，已按实际空指针写入位置纠正。脚本保存编译器、GDB、Valgrind版本及所有输出，验证原始vector打印的10组等式，补充密码边界和30000步数组差分，Bork含空串/全元音/无元音。
 
 验证仅在独立.github/workflows/lab02.yml的GitHub Actions执行，本地未编译或运行实验。当前结果待远程运行确认，恢复时查看edidada/lab02最新HEAD的运行，不以本说明代替证据。
 
@@ -13,3 +13,5 @@ ex2/ex3命令在原始/仅修正长度的中间版本上分别运行，记录修
 首次f81d667/run43038273993在安装gdb/valgrind时因runner的azure.archive.ubuntu.com DNS失败，尚未执行实验；改用隔离的官方archive.ubuntu.com源并限时安装，不减去GDB/Valgrind验证。另完整检出以读取原始调试版本。
 
 162cefe和0ba874d分别尝试官方主镜像与sudo代理保留，日志确认没有HTTP代理且仍DNS失败；改用固定SHA的mamba-org/setup-micromamba提供conda-forge GDB18.1/Valgrind3.27.1，不省略调试器/内存检查。实际解析环境的显式包锁随artifact归档；是否能完成实验仍以最终远程结果为准。
+
+2026-11-12修复：Valgrind还需要与runner libc6版本匹配的libc6-dbg；通过官方Ubuntu归档下载，DNS失败时使用当日解析的官方A记录与curl --resolve，保留主机名和TLS证书验证。run43122877486已完成工具安装和9次Valgrind，但原GDB命令在check_password作用域读取check_length局部变量而失败。改为直接在check_length断点检查；ex3条件断点限定数字检查的lower=0。run43123040496证明length=24、meets_len_req=false、数字字符48与错误边界0/9，以及SIGSEGV位于ben第15行；随后修正错误的第16行断言与答案。最终状态以最新HEAD的完整Actions结论为准。
