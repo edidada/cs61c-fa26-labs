@@ -1,13 +1,15 @@
 # CS61C Fall2026 Lab03：RISC-V与Venus
 
-规范 https://cs61c.org/fa26/labs/lab03/ ，官方基线ae05a0313aad04ed688bb4fbd1aa7df3b8b38132。AI辅助公开自学，不冒充校内提交。
+公开程序与调试答案在d7f94fb的[Actions 43040403080](https://github.com/edidada/cs61c-fa26-labs/actions/runs/43040403080)全部通过，结果原文保存reports/lab03-results.json。报告归档后的最终提交由同一独立lab03.yml再次验证，查看分支edidada/lab03最新HEAD对应运行。本地未编译或运行模拟器。
 
-hello输出2026；内存循环改为严格小于10以避免第11次写入，保存分配基址并free；离散函数用输入加3、左移2位、基址相加后lw，无条件分支（仅保留原jr ra返回）；可选factorial采用迭代乘积，初始化累乘值并支持0!。未改官方离散函数tester和fib。
+来源为[Fall2026 Lab3规范](https://cs61c.org/fa26/labs/lab03/)，官方starter ae05a0313aad04ed688bb4fbd1aa7df3b8b38132。当前官方download_tools.sh仍指向sp26 Venus，SHA256固定69e48a8ffecb155d1227d171ae6888be0d3e103975d04b19762a08fc9463e1cc。网页另直接访问https://venus.cs61c.org/，按观察日记录，不冒称与JAR同版本。
 
-独立.github/workflows/lab03.yml调用scripts/verify_lab03.sh；只在Actions执行。使用当期官方download_tools.sh指向的sp26 Venus工具URL，固定首次实际下载SHA256为69e48a8ffecb155d1227d171ae6888be0d3e103975d04b19762a08fc9463e1cc，不将其冒称新秋季版本。验证hello/fib、7个官方lookup案例、factorial的0/1/3/7/8/12，以及memcheck；另保存原始越界、修正边界后的泄漏与最终释放对照，fib trace用于逐项核对调试题。
+hello输出2026。内存循环严格小于10，保存分配基址并释放；离散函数只用偏移加3、左移2、基址寻址和lw，除原有jr ra外无分支/跳转；factorial用初始化的迭代乘积，覆盖0/1/3/7/8/12。原始7例tester与fib未改，测试程序的打印结果另做断言，最终memcheck明确0字节0块。
 
-当前远程结果及ex2/ex3答案尚待日志核对，不计完成。网页编辑器挂载、Step/Prev交互、问卷、Gradescope尚未验收；CLI trace不能冒充手工网页操作。本地不运行编译/模拟实验，无新增Python文件。
+Chromium实际编辑器载入、组装、Step/Prev、查看内存0x10000000字节0C、设置0x28断点、停靠七次、十进制切换和最终输出144均通过。七次t0为1/1/2/3/5/8/13。11个ex2答案逐项与网页实际值比较；sp实测0x7fffffdc，保存在browser.json，未凭历史默认值填答。截图在output/playwright/。
 
-首次a6ac0ca/run43039021877已证明功能用例和最终内存零泄漏，但浅克隆缺少基线提交，读取原始调试样例失败；现完整检出以保留演进证据。CLI trace为执行后PC/寄存器配执行前指令，且CLI参数设置令sp=0x7fffffdc；不能不加核对地冒充网页默认栈值。
+ex3八题来自原始与中间版真实运行：无memcheck越界0x10008058；memcheck越界0x10008080、分配40字节、18行、索引10；仅修边界后泄漏40字节位于0x10008058。脚本对错误日志与最终零泄漏同时断言，避免预期错误因工具未运行而被误报成功。
 
-211443c/run43039382455完整CLI通过；fad9bb5/run43039618308额外用Chromium实际操作官方Venus网页，编辑器粘贴fib、组装、Step/Prev、寄存器和最终144均通过，网页默认sp也实测为0x7fffffdc。ex2答案采用实际网页值；后续进一步核验数据字节、0x28断点七次停靠和十进制显示，逐项比较11个答案。ex3八题来自固定工具原始与中间版本实际日志：无memcheck越界0x10008058，memcheck越界0x10008080，块40字节、源18行、索引10，泄漏40字节位于0x10008058。
+首次a6ac0ca因浅克隆缺少基线，完整检出修复；db6d48c的浏览器探针将0C当作十进制解析，现用十六进制解析；这些验证脚本问题已在d7f94fb修正，不修改原始tester的期望。
+
+这是AI辅助公开自学结果。网页文件系统挂载尚未验证，个人反馈问卷和Gradescope未执行，不代表校内全部环节通过，也不代表整门课程完成。

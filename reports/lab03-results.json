@@ -1,0 +1,43 @@
+{
+  "validated_commit": "d7f94fb12b8fa3905812f5bc0b81e8039debe187",
+  "run_url": "https://github.com/edidada/cs61c-fa26-labs/actions/runs/43040403080",
+  "conclusion": "success",
+  "venus_sha256": "69e48a8ffecb155d1227d171ae6888be0d3e103975d04b19762a08fc9463e1cc",
+  "browser_answers": [
+    "0x000002B3",
+    "0x00000073",
+    "0x7FFFFFDC",
+    "0x00000001",
+    "0x10000E17",
+    "0x10000000",
+    "0x0c",
+    "0x00000001",
+    "0x0000000D",
+    "13",
+    "144"
+  ],
+  "breakpoint_t0": [
+    "0x00000001",
+    "0x00000001",
+    "0x00000002",
+    "0x00000003",
+    "0x00000005",
+    "0x00000008",
+    "0x0000000D"
+  ],
+  "browser_status": "passed",
+  "logs": {
+    "hello.log": "2026\nExited with error code 0\n",
+    "fib.log": "144",
+    "discrete.log": "f(-3) should be 6, and it is: 6\nf(-2) should be 61, and it is: 61\nf(-1) should be 17, and it is: 17\nf(0) should be -38, and it is: -38\nf(1) should be 19, and it is: 19\nf(2) should be 42, and it is: 42\nf(3) should be 5, and it is: 5\n",
+    "memory.log": "[memcheck] data allocs\n[memcheck] end data allocs\n[memcheck] malloc: utils.s:8 ecall\n[memcheck] malloc: ptr=0x10008058 rawptr=0x10008030 size=40\n[memcheck] heap allocs\n[memcheck]     ptr=0x10008058 size=40\n[memcheck] end heap allocs\n[memcheck] heap frees\n[memcheck] end heap frees\n[memcheck] access: addr=0x10008058 size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x1000805C size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008060 size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008064 size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008068 size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x1000806C size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008070 size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008074 size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008078 size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] access: addr=0x1000807C size=4 pc=0x00000018 file=lab03/ex3_memcheck.s:19 instr=sw x0 0(t0)\n[memcheck] free: utils.s:15 ecall\n[memcheck] free: ptr=0x10008058 rawptr=0x10008030 size=120\n[memcheck] heap allocs\n[memcheck] end heap allocs\n[memcheck] heap frees\n[memcheck]     ptr=0x10008058 size=40\n[memcheck] end heap frees\n\nExited with error code 0\n[memcheck] In use at exit: 0 bytes in 0 blocks\n",
+    "original-normal.log": "Venus ran into a simulator error!\nAttempting to access uninitialized memory between the stack and heap. Attempting to access '4' bytes at address '0x10008058'.\n",
+    "original-memcheck.log": "[memcheck] Invalid memory access of size 4. Address 0x10008080 is 0 bytes after a block of size 40 alloc'd.\n\tProgram Counter: 0x00000014\n\tFile: test-results/original/ex3_memcheck.s:18\n\tInstruction: sw x0 0(t0)\n\tRegisters:\n\t                      x1(ra)=0x00000008   x2(sp)=0x7FFFFFF0   x3(gp)=0x10000000\n\t  x4(tp)=0x00000000   x5(t0)=0x10008080   x6(t1)=0x0000000A   x7(t2)=0x0000000A\n\t  x8(s0)=0x00000000   x9(s1)=0x00000000  x10(a0)=0x10008058  x11(a1)=0x00000028\n\t x12(a2)=0x00000000  x13(a3)=0x00000000  x14(a4)=0x00000000  x15(a5)=0x00000000\n\t x16(a6)=0x00000001  x17(a7)=0x00000000  x18(s2)=0x00000000  x19(s3)=0x00000000\n\t x20(s4)=0x00000000  x21(s5)=0x00000000  x22(s6)=0x00000000  x23(s7)=0x00000000\n\t x24(s8)=0x00000000  x25(s9)=0x00000000 x26(s10)=0x00000000 x27(s11)=0x00000000\n\t x28(t3)=0x00000000  x29(t4)=0x00000000  x30(t5)=0x00000000  x31(t6)=0x00000000\n\nExited with error code 0\n[memcheck] In use at exit: 40 bytes in 1 blocks\n[memcheck] For detailed leak analysis, rerun with --memcheckVerbose\n",
+    "intermediate-memory.log": "[memcheck] data allocs\n[memcheck] end data allocs\n[memcheck] malloc: utils.s:8 ecall\n[memcheck] malloc: ptr=0x10008058 rawptr=0x10008030 size=40\n[memcheck] heap allocs\n[memcheck]     ptr=0x10008058 size=40\n[memcheck] end heap allocs\n[memcheck] heap frees\n[memcheck] end heap frees\n[memcheck] access: addr=0x10008058 size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x1000805C size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008060 size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008064 size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008068 size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x1000806C size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008070 size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008074 size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x10008078 size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n[memcheck] access: addr=0x1000807C size=4 pc=0x00000014 file=test-results/original/ex3_memcheck.s:18 instr=sw x0 0(t0)\n\nExited with error code 0\n[memcheck] In use at exit: 40 bytes in 1 blocks\n\t40 bytes at 0x10008058 is lost\n"
+  },
+  "limits": [
+    "filesystem mounting not verified",
+    "personal feedback and Gradescope not performed",
+    "public self-study, not classroom acceptance"
+  ]
+}
