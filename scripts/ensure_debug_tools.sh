@@ -7,7 +7,19 @@ if command -v gdb && command -v valgrind; then
         version=$(dpkg-query -W -f='${Version}' libc6:amd64)
         echo "Installing matching glibc debug symbols for $version"
         deb=$(mktemp --suffix=.deb)
-        curl --fail --location --retry 2 --connect-timeout 10 --max-time 90 "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6-dbg_${version}_amd64.deb" -o "$deb"
+        url="https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6-dbg_${version}_amd64.deb"
+        if ! curl --fail --location --connect-timeout 10 --max-time 90 "$url" -o "$deb"; then
+            # Official archive A records verified on 2026-11-12. Keep hostname/TLS
+            # verification intact when the runner cannot resolve Ubuntu DNS.
+            downloaded=false
+            for address in 185.125.190.83 91.189.91.82 91.189.92.23; do
+                if curl --fail --location --resolve "archive.ubuntu.com:443:$address" --connect-timeout 10 --max-time 90 "$url" -o "$deb"; then
+                    downloaded=true
+                    break
+                fi
+            done
+            "$downloaded"
+        fi
         sudo dpkg -i "$deb"
     fi
     exit 0
