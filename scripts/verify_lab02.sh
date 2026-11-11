@@ -56,6 +56,6 @@ grep -q '= false' "$out/ex3.gdb.log"
 gcc -g -O0 lab02/ex5_segfault.c -o "$out/build/segfault"
 gdb -q -batch -ex run -ex bt "$out/build/segfault" > "$out/ex5.gdb.log" 2>&1
 grep -q 'SIGSEGV' "$out/ex5.gdb.log"
-grep -q 'ex5_segfault.c:16' "$out/ex5.gdb.log"
+grep -q 'ex5_segfault.c:15' "$out/ex5.gdb.log"
 grep -q 'in ben' "$out/ex5.gdb.log"
 printf 'PASS: original drivers, boundary/differential tests, 9 Valgrind runs, GDB ex2/ex3/ex5\n'
