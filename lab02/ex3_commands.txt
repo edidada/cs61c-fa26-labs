@@ -8,7 +8,7 @@ run
 step
 step
 backtrace
-break pwd_checker.c:31 if letter == '0'
+break pwd_checker.c:31 if letter == '0' && lower == 0
 continue
 print letter
 next
