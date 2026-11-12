@@ -40,7 +40,8 @@ for exercise in ex2 ex3; do
     for entry in '0:0:1' '0:5:0' '1:20:1' '2:0:1' '2:1:2' '2:10:1024' '-2:7:-128' '2:31:-2147483648'; do
         IFS=: read -r base exponent expected <<< "$entry"
         file="$out/generated/$exercise-$base-$exponent.s"
-        sed -e "s/n: .word 2/n: .word $base/" -e "s/exp: .word 10/exp: .word $exponent/" "lab04/$exercise.s" > "$file"
+        printf '.globl %s\n' "$exercise" > "$file"
+        sed -e "s/n: .word 2/n: .word $base/" -e "s/exp: .word 10/exp: .word $exponent/" "lab04/$exercise.s" >> "$file"
         venus "$exercise-$base-$exponent" "$file"
         grep -qx -- "$expected" "$out/$exercise-$base-$exponent.log"
     done
@@ -90,6 +91,9 @@ main:
     bne sp s2 failed
     li a0 1
     li a1 12345
+    ecall
+    li a0 11
+    li a1 10
     ecall
     li a0 10
     ecall
