@@ -1,0 +1,25 @@
+name: CS61C Lab06 control and pipelining
+on:
+  push:
+    branches: [edidada/lab06]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lab06:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: xvfb-run -a bash scripts/verify_lab06.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cs61c-lab06-results
+          path: test-results/
