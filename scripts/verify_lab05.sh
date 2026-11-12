@@ -5,6 +5,7 @@ out="$PWD/test-results"
 exec > >(tee "$out/verification.log") 2>&1
 printf 'commit=%s\n' "$(git rev-parse HEAD)"
 curl --fail --location --retry 3 --max-time 180 https://inst.eecs.berkeley.edu/~cs61c/sp26/tools/logisim-evolution-latest.jar -o tools/logisim-evolution.jar
+echo '8a963b4031c681f9945fb90f5a4c5506d6973dadb46844c44deca204258238df  tools/logisim-evolution.jar' | sha256sum --check
 sha256sum tools/logisim-evolution.jar | tee "$out/logisim.sha256"
 java -version
 git diff --exit-code ae05a0313aad04ed688bb4fbd1aa7df3b8b38132 -- lab05/tests lab05/test.py lab05/check_hashes.py
@@ -23,7 +24,9 @@ vector() {
     local circuit=$1 file=$2 source=$3
     timeout 120 java -jar tools/logisim-evolution.jar -test-vector "$circuit" "$file" "$source" > "$out/$circuit-vector.log" 2>&1
     cat "$out/$circuit-vector.log"
-    ! grep -Eiq 'exception|failed|error' "$out/$circuit-vector.log"
+    local count=$(( $(wc -l < "$file") - 1 ))
+    grep -q "Passed: $count, Failed: 0" "$out/$circuit-vector.log"
+    ! grep -Eiq 'Exception in thread|Failed: [1-9]' "$out/$circuit-vector.log"
 }
 for circuit in NAND2 NOR2 XOR2 MUX2; do
     file="$out/$circuit.vec"
