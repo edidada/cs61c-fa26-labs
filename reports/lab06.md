@@ -17,3 +17,5 @@ ex5_answers 描述修复前电路：周期 0/1 输入 200/201，bit_zero 为 0/1
 原始 test.py 失败仍返回 0，因此脚本额外断言 Passed 4/4 并逐文件 diff。补充覆盖全部 4096 个 S 立即数各两组无关位、全部 128 opcode ×8 funct3，以及 0..255 和无符号 32 位边界。官方工具按 SHA256 固定。当前尚待远端执行结果，不能提前计为验收成功。
 
 GUI 的 Timing Diagram、Add or Remove Signals、手工逐周期探测未执行；CLI 观测不能冒充这些 GUI 操作。个人反馈问卷、Gradescope 未提交。
+
+首轮实现 c2d31d6 的远端 run43222678219 已 completed/success：原始4/4轨迹、8192立即数、1024控制、270数字边界全部通过。原始buggy CSV也已观测并断言，工件cs61c-lab06-results包含全部向量与日志。最终文档提交仍由同一独立工作流重新验证。
