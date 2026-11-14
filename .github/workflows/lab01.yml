@@ -1,0 +1,18 @@
+name: CS61C Lab01
+on:
+  push:
+    branches: [edidada/lab01]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exercises:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/verify_lab01.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lab01-evidence
+          path: evidence/
